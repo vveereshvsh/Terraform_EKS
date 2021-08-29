@@ -3,8 +3,8 @@
 ## Download example
 Download this example on your workspace
 ```sh
-git clone https://github.com/Young-ook/terraform-aws-eks
-cd terraform-aws-eks/examples/autoscaling
+git clone https://github.com/vveereshvsh/Terraform_EKS
+cd Terraform_EKS
 ```
 
 ## Setup
