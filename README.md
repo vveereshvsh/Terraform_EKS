@@ -29,61 +29,8 @@ This example requires a running Kubernetes cluster and kubectl. [Metrics server]
 ### PHP application
 First, we will start a deployment running the image and expose it as a service. Run the following command:
 ```
-kubectl apply -f manifests/php-apache.yaml
+kubectl apply -f manifests/node-app.yaml
 ```
-Here is the details of `php-apache.yaml` file to deploy web application. This manifest creates a simple PHP-based web server and Kubernetes service. It will listen for http requests on port 80.
-```
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: php-apache
-spec:
-  selector:
-    matchLabels:
-      run: php-apache
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        run: php-apache
-    spec:
-      containers:
-      - name: php-apache
-        image: k8s.gcr.io/hpa-example
-        ports:
-        - containerPort: 80
-        resources:
-          limits:
-            cpu: 500m
-          requests:
-            cpu: 200m
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: php-apache
-  labels:
-    run: php-apache
-spec:
-  ports:
-  - port: 80
-  selector:
-    run: php-apache
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: php-apache
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: php-apache
-  minReplicas: 1
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
-```
-
 ### Create Horizontal Pod Autoscaler
 Now that the server is running, we will create the autoscaler using kubectl autoscale. The following command will create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods controlled by the php-apache deployment we created in the first step of these instructions.
 
