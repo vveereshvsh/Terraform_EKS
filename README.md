@@ -29,7 +29,7 @@ This example requires a running Kubernetes cluster and kubectl. [Metrics server]
 ## Clean up
 Delete the example from the kubernetes cluster.
 ```sh
-kubectl delete -f manifests/php-apache.yaml
+kubectl delete -f manifests/node-app.yaml
 ```
 
 To remove all infrastrcuture, run terraform:
